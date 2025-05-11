@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { GameAccessModal } from "@/components/game-access-modal";
 import { Navbar } from "@/components/navbar";
 import { MoonIcon, UsersIcon, EyeIcon, ArrowDownIcon } from "lucide-react";
+import AnimatedText from "@/components/animated-text";
 
 export default function Home() {
   const { t } = useTranslation();
@@ -195,19 +196,31 @@ function HeroSection() {
           animate={{ scale: 1 }}
           transition={{ duration: 0.8 }}
         >
-          <h1 className="text-6xl md:text-7xl lg:text-8xl font-bold mb-6 text-red-500 drop-shadow-[0_0_15px_rgba(239,68,68,0.5)]">
-            {t("home.title")}
-          </h1>
+          <AnimatedText
+            text={t("home.title")}
+            type="werewolf"
+            color="text-red-500"
+            size="text-6xl md:text-7xl lg:text-8xl"
+            intensity="high"
+            className="font-display"
+          />
         </motion.div>
 
-        <motion.p
+        <motion.div
           className="text-xl md:text-2xl mb-8 font-light tracking-wide text-gray-200"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5, duration: 1 }}
         >
-          {t("home.subtitle")}
-        </motion.p>
+          <AnimatedText
+            text={t("home.subtitle")}
+            type="flicker"
+            color="text-gray-200"
+            size="text-xl md:text-2xl"
+            delay={0.5}
+            className="font-light tracking-wide"
+          />
+        </motion.div>
 
         <div className="relative mt-12">
           <motion.div

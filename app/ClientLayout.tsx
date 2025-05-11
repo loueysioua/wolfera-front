@@ -1,33 +1,43 @@
-"use client"
+"use client";
 
-import type React from "react"
-
-import { useEffect } from "react"
-import { useTranslation } from "react-i18next"
-import { ThemeProvider } from "@/components/theme-provider"
-import "@/app/globals.css"
-import "@/i18n/i18n" // Import i18n configuration
+import { ThemeProvider } from "@/components/theme-provider";
+import { inter, creepster } from "@/lib/fonts";
+import { I18nextProvider } from "react-i18next";
+import i18n from "@/i18n/i18n";
+import { useEffect, useState } from "react";
 
 export default function ClientLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
-  const { i18n } = useTranslation()
+  // const [mounted, setMounted] = useState(false);
 
-  // Set document direction based on language
-  useEffect(() => {
-    document.documentElement.dir = i18n.dir()
-    document.documentElement.lang = i18n.language
-  }, [i18n, i18n.language])
+  // // This ensures hydration matching
+  // useEffect(() => {
+  //   setMounted(true);
+  // }, []);
+
+  // if (!mounted) {
+  //   return null;
+  // }
 
   return (
-    <html lang={i18n.language} dir={i18n.dir()}>
-      <body className={`min-h-screen bg-background font-sans antialiased`}>
+    <html
+      lang="en"
+      className={`${inter.variable} ${creepster.variable}`}
+      suppressHydrationWarning
+    >
+      <body className="font-sans bg-slate-900 text-white min-h-screen">
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
-          {children}
+          <I18nextProvider i18n={i18n}>
+            {/* Game audio context (optional) */}
+            {/* <AudioProvider> */}
+            <div className="flex flex-col min-h-screen">{children}</div>
+            {/* </AudioProvider> */}
+          </I18nextProvider>
         </ThemeProvider>
       </body>
     </html>
-  )
+  );
 }
